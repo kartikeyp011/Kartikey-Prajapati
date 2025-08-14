@@ -36,9 +36,9 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 
 ## 📬 Contact
 
-* **Email:** [your.email@example.com](mailto:your.email@example.com)
-* **LinkedIn:** [linkedin.com/in/yourprofile](https://linkedin.com/in/yourprofile)
-* **GitHub:** [github.com/yourusername](https://github.com/yourusername)
+* **Email:** [kartikeyp011@example.com](mailto:kartikeyp011@example.com)
+* **LinkedIn:** [linkedin.com/in/kartikeyp011](https://linkedin.com/in/kartikeyp011)
+* **GitHub:** [github.com/kartikeyp011](https://github.com/kartikeyp011)
 
 ```
 ```
