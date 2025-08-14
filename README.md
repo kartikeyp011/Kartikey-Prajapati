@@ -41,4 +41,3 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 * **GitHub:** [github.com/kartikeyp011](https://github.com/kartikeyp011)
 
 ```
-```
