@@ -13,6 +13,7 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 - **Accessible Layout** – High contrast and semantic HTML.
 
 
+
 ## 📂 Sections
 1. **Hero** – Introduction, tagline, profile image, and quick action buttons.
 2. **About Me** – Brief bio, skills breakdown (AI/ML, Backend, Tools & DevOps), and fun fact.
@@ -25,10 +26,12 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 9. **Footer** – Minimalist footer with copyright.
 
 
+
 ## 🛠️ Tech Stack
 - **Frontend:** HTML, Tailwind CSS (CDN)
 - **Animations & UI Enhancements:** Tailwind transitions, keyframe animations
 - **Typography & Forms:** Tailwind Typography & Forms plugins
+
 
 
 ## 📬 Contact
