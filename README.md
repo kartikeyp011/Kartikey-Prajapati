@@ -34,39 +34,6 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 
 ---
 
-## 📦 Installation & Usage
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/portfolio.git
-````
-
-2. Navigate into the project folder:
-
-   ```bash
-   cd portfolio
-   ```
-3. Open `index.html` in your browser:
-
-   ```bash
-   start index.html   # Windows
-   open index.html    # macOS
-   ```
-
----
-
-## 🚀 Deployment
-
-* Deploy easily on **GitHub Pages**, **Vercel**, or **Netlify**.
-* Ensure Tailwind CSS is loaded via CDN for the standalone build.
-
----
-
-## 📸 Preview
-
-![Portfolio Screenshot](./assets/preview.png)
-
----
-
 ## 📬 Contact
 
 * **Email:** [your.email@example.com](mailto:your.email@example.com)
