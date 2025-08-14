@@ -1,4 +1,3 @@
-````
 # Kartikey Prajapati – AIML & Backend Developer Portfolio
 
 A modern, responsive personal portfolio website built with **HTML** and **Tailwind CSS** to showcase my work, skills, and achievements as a 4th-year AIML and Backend developer.
