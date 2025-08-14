@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartikey Prajapati | AI/ML & Backend Developer</title>
+    <style>
+        /* Tooltip styling */
+        .skill-tooltip {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            text-align: center;
+            min-width: max-content;
+        }
+        .skill-tooltip b {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 2px;
+            color: #ffd700; /* gold color for skill name */
+        }
+        .skill-badge {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .skill-badge:hover {
+            transform: scale(1.1);
+        }
+        .skill-badge:hover .skill-tooltip {
+            opacity: 1;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f4ff',
+                            100: '#e0e9ff',
+                            200: '#c7d7fe',
+                            300: '#a5b8fc',
+                            400: '#8190f8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                        },
+                        secondary: {
+                            50: '#ecfdfd',
+                            100: '#cff7f7',
+                            200: '#a5f0f0',
+                            300: '#67e3e3',
+                            400: '#22d3d3',
+                            500: '#14b8b6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        accent: {
+                            50: '#fff9eb',
+                            100: '#ffefc6',
+                            200: '#ffdd88',
+                            300: '#ffc548',
+                            400: '#ffae20',
+                            500: '#f99107',
+                            600: '#dd6b02',
+                            700: '#b74a06',
+                            800: '#94380c',
+                            900: '#7a2f0d',
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 3s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+        const section = document.getElementById('testimonials');
+        if (!section) return;
+
+        const carousel = section.querySelector('.testimonial-carousel');
+        const track = carousel.querySelector('.flex'); // the sliding track
+        const slides = Array.from(track.querySelectorAll('.testimonial-slide'));
+
+        // The two nav buttons inside the same "relative" container
+        const container = section.querySelector('.relative.max-w-4xl.mx-auto') || section.querySelector('#testimonials .relative');
+        const [prevBtn, nextBtn] = container.querySelectorAll('button');
+
+        // Indicator dots (3 in your markup)
+        const indicators = Array.from(container.querySelectorAll('.flex.justify-center button'));
+
+        let index = 0;
+        let timer = null;
+        const AUTOPLAY_MS = 5000;
+
+        function update() {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            indicators.forEach((dot, i) => {
+            dot.classList.toggle('bg-primary-600', i === index);
+            dot.classList.toggle('dark:bg-primary-400', i === index);
+            dot.classList.toggle('bg-gray-300', i !== index);
+            dot.classList.toggle('dark:bg-gray-600', i !== index);
+            });
+        }
+
+        function goTo(i) {
+            index = (i + slides.length) % slides.length;
+            update();
+        }
+
+        function next() { goTo(index + 1); }
+        function prev() { goTo(index - 1); }
+
+        // Wire up buttons
+        if (nextBtn) nextBtn.addEventListener('click', next);
+        if (prevBtn) prevBtn.addEventListener('click', prev);
+
+        // Wire up dots
+        indicators.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+        // Autoplay with pause on hover/focus
+        function start() { stop(); timer = setInterval(next, AUTOPLAY_MS); }
+        function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+        [carousel, prevBtn, nextBtn].forEach(el => {
+            if (!el) return;
+            el.addEventListener('mouseenter', stop);
+            el.addEventListener('mouseleave', start);
+            el.addEventListener('focusin', stop);
+            el.addEventListener('focusout', start);
+        });
+
+        // Keyboard support
+        section.setAttribute('tabindex', '0'); // make focusable
+        section.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') next();
+            if (e.key === 'ArrowLeft')  prev();
+        });
+
+        // Touch swipe
+        let startX = null;
+        carousel.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; stop(); }, { passive: true });
+        carousel.addEventListener('touchend', (e) => {
+            if (startX == null) return;
+            const dx = e.changedTouches[0].clientX - startX;
+            if (Math.abs(dx) > 30) (dx < 0 ? next() : prev());
+            startX = null; start();
+        });
+
+        update();
+        start();
+        });
+
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .section-min-height {
+                min-height: calc(100vh - 68px);
+            }
+            .text-shadow {
+                text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            }
+            .nav-link {
+                @apply relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-primary-600 dark:after:bg-primary-400 after:transition-all after:duration-300 hover:after:w-full;
+            }
+            .nav-link.active {
+                @apply text-primary-600 dark:text-primary-400 after:w-full;
+            }
+            .skill-badge {
+                @apply relative flex items-center justify-center p-2 bg-gray-100 dark:bg-gray-700 rounded-lg transition-all duration-300 hover:transform hover:scale-110 hover:shadow-md;
+            }
+            .skill-tooltip {
+                @apply absolute -bottom-8 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 pointer-events-none transition-opacity duration-200 group-hover:opacity-100;
+            }
+            .tech-item {
+                @apply flex flex-col items-center p-4 bg-white dark:bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300;
+            }
+            .tech-icon {
+                @apply w-16 h-16 flex items-center justify-center mb-2;
+            }
+            .tech-tooltip {
+                @apply text-sm font-medium text-gray-700 dark:text-gray-200 mt-1;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md z-50 shadow-sm">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold text-primary-600 dark:text-primary-400">KNP</a>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link active">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#projects" class="nav-link">Projects</a>
+                    <a href="#experience" class="nav-link">Experience</a>
+                    <a href="#blogs" class="nav-link">Blogs</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-800 dark:text-gray-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <!-- Dark mode toggle -->
+                <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                    </svg>
+                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden py-4 space-y-4">
+                <a href="#home" class="block nav-link active">Home</a>
+                <a href="#about" class="block nav-link">About</a>
+                <a href="#projects" class="block nav-link">Projects</a>
+                <a href="#experience" class="block nav-link">Experience</a>
+                <a href="#blogs" class="block nav-link">Blogs</a>
+                <a href="#contact" class="block nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="section-min-height flex items-center pt-16">
+        <div class="container mx-auto px-6 py-12 md:py-24">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-12 md:mb-0 px-20" >
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                        Hi, I'm <span class="text-primary-600 dark:text-primary-400">Kartikey Narain Prajapati</span>
+                    </h1>
+                    <br>
+                    <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold mb-6 text-gray-600 dark:text-gray-300">
+                        <span id="typewriter"></span>
+                    </h2>
+                    <p class="text-lg mb-8 text-gray-600 dark:text-gray-300 max-w-lg">
+                        Final year CSE student passionate about building intelligent systems and scalable backend architectures.
+                    </p>
+                    <div class="flex space-x-4 mb-8">
+                        <a href="#projects" class="px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-lg font-medium transition shadow-lg hover:shadow-xl">
+                            View My Work
+                        </a>
+                        <a href="#contact" class="px-6 py-3 border-2 border-primary-600 text-primary-600 hover:bg-primary-50 dark:hover:bg-gray-800 rounded-lg font-medium transition">
+                            Hire Me
+                        </a>
+                    </div>
+                    <div class="flex space-x-4">
+                        <a href="https://github.com/kartikeyp011/"  target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/in/kartikeyp011/"  target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                        <!-- <a href="#" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                            </svg>
+                        </a> -->
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
+                        <div class="absolute inset-0 bg-gradient-to-br from-primary-400 to-secondary-500 rounded-full opacity-20 blur-xl animate-pulse"></div>
+                        <div class="relative w-full h-full flex items-center justify-center">
+                            <img src="assets/me.jpg" 
+                                 alt="Kartikey Prajapati" 
+                                 class="w-5/6 h-5/6 object-cover rounded-full border-4 border-white dark:border-gray-800 shadow-xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Me -->
+    <section id="about" class="py-20 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                About <span class="text-primary-600 dark:text-primary-400">Me</span>
+            </h2>
+            
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4">Who I Am</h3>
+                    <p class="text-lg mb-6 text-gray-600 dark:text-gray-300">
+                        I'm a Computer Science undergraduate specializing in Artificial Intelligence, Machine Learning, and Backend Development. I develop and deploy AI-powered solutions, build scalable APIs with FastAPI, and integrate advanced models like Gemini for real-world applications. My work spans NLP-driven contract analysis, AI-powered healthcare assistants, and personalized career guidance platforms.
+                    </p>
+                    <p class="text-lg mb-6 text-gray-600 dark:text-gray-300">
+                        When I'm not coding, I'm winning hackathons, exploring new AI frameworks, or refining my skills through certifications and projects. I believe in continuous learning, building impactful tech, and solving real problems with intelligent systems.
+                    </p>
+                    <div class="bg-accent-100 dark:bg-gray-700 p-4 rounded-lg border-l-4 border-accent-500">
+                        <p class="text-gray-800 dark:text-gray-200 italic">
+                            "Fun fact: I get more excited by clean datasets than by plot twists in K-dramas."
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-6">My Skills</h3>
+
+                    <!-- AI/ML Skills -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-medium mb-3 text-primary-600 dark:text-primary-400">AI / ML</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" class="w-8 h-8">
+                                <span class="skill-tooltip">Core language for AI, ML, and backend APIs</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="Scikit-learn" class="w-8 h-8">
+                                <span class="skill-tooltip">KNN, Naive Bayes, Logistic Regression models</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg" alt="TensorFlow" class="w-8 h-8">
+                                <span class="skill-tooltip">Deep learning for image & text classification</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg" alt="NumPy" class="w-8 h-8">
+                                <span class="skill-tooltip">Efficient array ops for preprocessing</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg" alt="Pandas" class="w-8 h-8">
+                                <span class="skill-tooltip">Data wrangling & cleaning</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg" alt="Matplotlib" class="w-8 h-8">
+                                <span class="skill-tooltip">Data visualization & analysis plots</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Backend Skills -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-medium mb-3 text-primary-600 dark:text-primary-400">Backend</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg" alt="FastAPI" class="w-8 h-8">
+                                <span class="skill-tooltip">Built REST APIs for ML model deployment</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg" alt="Django" class="w-8 h-8">
+                                <span class="skill-tooltip">Full-stack web apps & admin panels</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" alt="MySQL" class="w-8 h-8">
+                                <span class="skill-tooltip">Relational database design</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" alt="MongoDB" class="w-8 h-8">
+                                <span class="skill-tooltip">Document-based DB for scalable apps</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQL" class="w-8 h-8">
+                                <span class="skill-tooltip">Complex queries & data operations</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tools & Cloud -->
+                    <div class="mb-8">
+                        <h4 class="text-lg font-medium mb-3 text-primary-600 dark:text-primary-400">Tools & Cloud</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="Git" class="w-8 h-8">
+                                <span class="skill-tooltip">Version control for collaborative dev</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub" class="w-8 h-8">
+                                <span class="skill-tooltip">Project hosting & CI/CD workflows</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg" alt="Linux" class="w-8 h-8">
+                                <span class="skill-tooltip">Command-line operations & deployment</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="assets/aws.svg" alt="AWS" class="w-8 h-8">
+                                <span class="skill-tooltip">S3, Redshift, SageMaker, Lambda usage</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.simpleicons.org/googlegemini" alt="Gemini API" class="w-8 h-8">
+                                <span class="skill-tooltip">Integrated for intelligent content generation</span>
+                            </div>
+                            <div class="skill-badge">
+                                <img src="https://cdn.worldvectorlogo.com/logos/tableau-software.svg" alt="Tableau" class="w-8 h-8">
+                                <span class="skill-tooltip">Interactive dashboards & analytics</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Currently Learning -->
+                    <div>
+                        <h4 class="text-lg font-medium mb-3 text-secondary-600 dark:text-secondary-400">Currently Learning</h4>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="skill-badge opacity-70">
+                                <img src="https://cdn.simpleicons.org/scipy/8CAAE6" alt="Statistics" class="w-8 h-8">
+                                <span class="skill-tooltip">Advanced statistical modeling</span>
+                            </div>
+                            <div class="skill-badge opacity-70">
+                                <img src="https://cdn.simpleicons.org/spacy/09A3D5" alt="NLP" class="w-8 h-8">
+                                <span class="skill-tooltip">Text analysis & LLM fine-tuning</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">
+                My <span class="text-primary-600 dark:text-primary-400">Projects</span>
+            </h2>
+            <p class="text-center text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
+                Here are some of my notable projects. Each one was an opportunity to learn and grow as a developer.
+            </p>
+            
+            <!-- Project Filter Tabs -->
+            <div class="flex justify-center mb-12">
+                <div class="inline-flex rounded-md shadow-sm" role="group">
+                    <button type="button" class="project-filter px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-primary-600 dark:text-primary-400 hover:bg-gray-50 dark:hover:bg-gray-600 focus:z-10 focus:ring-2 focus:ring-primary-500">
+                        All
+                    </button>
+                    <button type="button" class="project-filter px-4 py-2 text-sm font-medium border-t border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 focus:z-10 focus:ring-2 focus:ring-primary-500">
+                        AI/ML
+                    </button>
+                    <button type="button" class="project-filter px-4 py-2 text-sm font-medium border-t border-b border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 focus:z-10 focus:ring-2 focus:ring-primary-500">
+                        Backend
+                    </button>
+                    <button type="button" class="project-filter px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-600 focus:z-10 focus:ring-2 focus:ring-primary-500">
+                        Hackathons
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700" data-category="ai/ml">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="LegalLens" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">LegalLens</h3>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                AI/ML
+                            </span>
+                        </div>
+                        <p class="text-sm italic text-gray-500 dark:text-gray-400 mb-2">"Never sign what you don’t understand — let AI read the fine print for you."</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            AI-powered legal assistant that detects risky contract clauses, explains them in plain language, and supports multi-format uploads — built with FastAPI, MongoDB, and Google Gemini API.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Python
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                FastAPI
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                MongoDB
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Gemini API
+                            </span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition">
+                                Live Demo
+                            </a>
+                            <a href="#" class="flex-1 text-center px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700" data-category="ai/ml">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="HealthAccess+" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">HealthAccess+</h3>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                AI/ML
+                            </span>
+                        </div>
+                        <p class="text-sm italic text-gray-500 dark:text-gray-400 mb-2">"AI-powered digital health assistant for smart, accessible care."</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Built a FastAPI-based backend integrating generative AI for symptom analysis, triage logic, and medical guidance — designed for quick, accessible health support.
+                        </p>
+                        <br>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Python
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                FastAPI
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Gemini API
+                            </span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition">
+                                Live Demo
+                            </a>
+                            <a href="#" class="flex-1 text-center px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700" data-category="ai/ml">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Insightify" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">Insightify</h3>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                AI/ML
+                            </span>
+                        </div>
+                        <p class="text-sm italic text-gray-500 dark:text-gray-400 mb-2">"Chat with your documents and test your understanding."</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            AI-powered document interaction tool with summarization, contextual Q&A, and logic-based challenges — using FastAPI, Streamlit, LangChain, and Gemini API.
+                        </p>
+                        <br>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Fast API
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Streamlit
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                LangChain
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                FAISS
+                            </span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition">
+                                Live Demo
+                            </a>
+                            <a href="#" class="flex-1 text-center px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700" data-category="ai/ml">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="PlantX" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">PlantX</h3>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                AI/ML
+                            </span>
+                        </div>
+                        <p class="text-sm italic text-gray-500 dark:text-gray-400 mb-2">"Identify plants instantly with deep learning."</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            HackArena 2025 winning project — deep learning-based plant identification system for quick, accurate species recognition.
+                        </p>
+                        <br>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Python
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Tensorflow
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Computer Vision
+                            </span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition">
+                                Live Demo
+                            </a>
+                            <a href="#" class="flex-1 text-center px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700" data-category="backend">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="MentoraX" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold">MentoraX</h3>
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                Backend
+                            </span>
+                        </div>
+                        <p class="text-sm italic text-gray-500 dark:text-gray-400 mb-2">"Your personal AI mentor for career growth."</p>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            AI system delivering real-time job insights, learning paths, and mentorship recommendations via integrated APIs and trend analysis tools.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Python
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                ML
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                FastAPI
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                API Integration
+                            </span>
+                        </div>
+                        <div class="flex space-x-3">
+                            <a href="#" class="flex-1 text-center px-4 py-2 bg-primary-600 hover:bg-primary-700 text-white rounded-md transition">
+                                Live Demo
+                            </a>
+                            <a href="#" class="flex-1 text-center px-4 py-2 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-md transition">
+                                GitHub
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 6 - Empty -->
+                <div class="project-card bg-white dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 flex items-center justify-center">
+                    <span class="text-gray-400 dark:text-gray-500">Coming Soon...</span>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 transition">
+                    View All Projects
+                    <svg class="ml-3 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+        
+    <!-- Experience & Achievements -->
+    <section id="experience" class="py-20 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                Experience & <span class="text-primary-600 dark:text-primary-400">Achievements</span>
+            </h2>
+            
+            <div class="relative">
+                <!-- Timeline line -->
+                <div class="hidden md:block absolute left-1/2 h-full w-0.5 bg-gray-300 dark:bg-gray-600 transform -translate-x-1/2"></div>
+                
+                <!-- Timeline items -->
+                <div class="space-y-8 md:space-y-16">
+                    <!-- Item 1 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0 order-2 md:order-1">
+                            <div class="md:mr-8 p-6 bg-white dark:bg-gray-700 rounded-lg shadow">
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Developed a mobile application (with Om) integrated with a deep learning model capable of 
+                                    accurately identifying plant species from uploaded images, focusing on native Indian species. 
+                                    Included detailed region-specific data such as medicinal uses and conservation status, 
+                                    with accuracy prioritized for indigenous species.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-primary-600 text-white shadow-lg z-10 order-1">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12 order-3">
+                            <div class="md:ml-8">
+                                <h3 class="text-xl font-bold">1st Place - HackArena 2025 </h3>
+                                <p class="text-gray-600 dark:text-gray-300">National Hackathon</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Feb 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Item 2 -->
+                    <div class="relative flex flex-col md:flex-row items-center">
+                        <div class="md:w-1/2 md:pr-12 md:text-right mb-4 md:mb-0">
+                            <div class="md:mr-8">
+                                <h3 class="text-xl font-bold">AI/ML Intern</h3>
+                                <p class="text-gray-600 dark:text-gray-300">DRDO, Delhi</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">Aug 2025 - Ongoing</p>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex items-center justify-center w-8 h-8 rounded-full bg-primary-600 text-white shadow-lg z-10">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="md:w-1/2 md:pl-12">
+                            <div class="md:ml-8 p-6 bg-white dark:bg-gray-700 rounded-lg shadow">
+                                <p class="text-gray-600 dark:text-gray-300">
+                                    Researching and implementing adversarial attacks on CNN-based machine learning models, 
+                                    analyzing vulnerabilities, and sharing findings for defense improvements.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Blogs -->
+    <section id="blogs" class="py-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">
+                My <span class="text-primary-600 dark:text-primary-400">Blogs</span>
+            </h2>
+            <p class="text-center text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
+                Sharing knowledge is my passion. Here are some of my recent technical writings.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Blog 1 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Optimizing TensorFlow Models" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                AI/ML
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Performance
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Optimizing TensorFlow Models for Edge Devices</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            A deep dive into quantization, pruning, and other techniques to make your TensorFlow models run efficiently on resource-constrained devices...
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Aug 15, 2023</span>
+                            <a href="#" class="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog 2 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Microservices Patterns" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
+                                Backend
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                Architecture
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Microservices Communication Patterns: Beyond REST</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Exploring gRPC, event sourcing, and message brokers for building resilient microservices architectures that scale...
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Jul 28, 2023</span>
+                            <a href="#" class="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Blog 3 -->
+                <div class="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700">
+                    <div class="h-48 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                             alt="Transformer Architecture" 
+                             class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                    </div>
+                    <div class="p-6">
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                                AI/ML
+                            </span>
+                            <span class="inline-flex items-center px-2 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200">
+                                NLP
+                            </span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">Demystifying the Transformer Architecture</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            A step-by-step explanation of how attention mechanisms work and why they revolutionized natural language processing...
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-500 dark:text-gray-400">Jun 10, 2023</span>
+                            <a href="#" class="text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 font-medium transition">
+                                Read More →
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 transition">
+                    View All Blogs
+                    <svg class="ml-3 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 bg-gray-100 dark:bg-gray-800">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+                What People <span class="text-primary-600 dark:text-primary-400">Say</span>
+            </h2>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Testimonial Carousel -->
+                <div class="testimonial-carousel overflow-hidden">
+                    <div class="flex transition-transform duration-300 ease-in-out">
+                        
+                        <!-- Testimonial 1: Om -->
+                        <div class="testimonial-slide min-w-full px-4">
+                            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4">
+                                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Om" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Om</h4>
+                                        <p class="text-gray-600 dark:text-gray-300">Full Stack Web Developer</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 italic">
+                                    "Kartikey’s approach to tech is all about learning through doing — a mindset I deeply admire. 
+                                    His knack for diving into real projects, experimenting, and refining until the solution is rock-solid 
+                                    reminds me of my own journey. Watching him tackle challenges head-on, especially with his curiosity 
+                                    in emerging tech, makes it clear he’s going to leave a real mark in the field."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 2: Manan -->
+                        <div class="testimonial-slide min-w-full px-4">
+                            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4">
+                                        <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Manan Gakkhar" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Manan Gakkhar</h4>
+                                        <p class="text-gray-600 dark:text-gray-300">CSE Student & UI/UX Enthusiast</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 italic">
+                                    "I’ve seen Kartikey turn complex problems into elegant solutions with an almost surgical precision. 
+                                    Whether it’s full-stack development, integrating smart tools, or designing intuitive user experiences, 
+                                    he blends creativity with strategic thinking. He’s the kind of teammate who lifts the entire project, 
+                                    and honestly, he makes collaboration a lot more fun."
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial 3: Kanika -->
+                        <div class="testimonial-slide min-w-full px-4">
+                            <div class="bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700">
+                                <div class="flex items-center mb-6">
+                                    <div class="w-16 h-16 rounded-full overflow-hidden mr-4">
+                                        <img src="https://randomuser.me/api/portraits/women/47.jpg" alt="Kanika" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold">Kanika</h4>
+                                        <p class="text-gray-600 dark:text-gray-300">Web & Web3 Developer</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-600 dark:text-gray-300 italic">
+                                    "From hackathons to collaborative projects, Kartikey consistently shows up with sharp technical 
+                                    skills and a willingness to experiment with new tech. His Python expertise, combined with his 
+                                    web development know-how, makes him a versatile asset in any project. I’ve also seen his eye for 
+                                    design shine through, proving he’s not just about code — he’s about crafting complete solutions."
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                <!-- Carousel Controls -->
+                <button class="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-4 bg-white dark:bg-gray-700 p-2 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition z-10">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button class="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-4 bg-white dark:bg-gray-700 p-2 rounded-full shadow-md hover:bg-gray-100 dark:hover:bg-gray-600 transition z-10">
+                    <svg class="w-6 h-6 text-gray-800 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+                
+                <!-- Indicators -->
+                <div class="flex justify-center mt-6 space-x-2">
+                    <button class="w-3 h-3 rounded-full bg-primary-600 dark:bg-primary-400"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600"></button>
+                    <button class="w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6 max-w-6xl">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">
+                Get In <span class="text-primary-600 dark:text-primary-400">Touch</span>
+            </h2>
+            <p class="text-center text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-12">
+                Have a project in mind or want to discuss potential opportunities? Feel free to reach out!
+            </p>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2">
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Name</label>
+                            <input type="text" id="name" name="name" 
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email</label>
+                            <input type="email" id="email" name="email" 
+                                   class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Message</label>
+                            <textarea id="message" name="message" rows="5" 
+                                      class="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" 
+                                    class="w-full px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-md shadow transition">
+                                Send Message
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white dark:bg-gray-700 p-8 rounded-xl shadow-md border border-gray-200 dark:border-gray-600">
+                        <h3 class="text-xl font-bold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Email</p>
+                                    <p class="text-base text-gray-800 dark:text-gray-200">kartikeyp011@example.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Phone</p>
+                                    <p class="text-base text-gray-800 dark:text-gray-200">+91 7838582336</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Location</p>
+                                    <p class="text-base text-gray-800 dark:text-gray-200">South Delhi, India</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="text-lg font-medium mb-4">Connect with me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/kartikeyp011" target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                                <a href="https://www.linkedin.com/in/kartikeyp011" target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </a>
+                                <!-- <a href="#" target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"></path>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"></path>
+                                    </svg>
+                                </a>
+                                <a href="#" target="_blank" class="text-gray-600 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-400 transition">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"></path>
+                                    </svg>
+                                </a> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-300 py-8">
+        <div class="container mx-auto px-6">
+            <!-- <div class="flex flex-col md:flex-row justify-between items-center px-16">
+                <div class="mb-4 md:mb-0">
+                    <a href="#" class="text-2xl font-bold text-white">Kartikey Prajapati</a>
+                    <p class="mt-1 text-sm">AI/ML & Backend Developer</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#home" class="hover:text-white transition">Home</a>
+                    <a href="#about" class="hover:text-white transition">About</a>
+                    <a href="#projects" class="hover:text-white transition">Projects</a>
+                    <a href="#contact" class="hover:text-white transition">Contact</a>
+                </div>
+            </div> -->
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>&copy; 2025 Kartikey Prajapati. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+            document.documentElement.classList.add('dark');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+            document.documentElement.classList.remove('dark');
+        }
+
+        themeToggle.addEventListener('click', function() {
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            if (localStorage.getItem('color-theme')) {
+                if (localStorage.getItem('color-theme') === 'light') {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                }
+            } else {
+                if (document.documentElement.classList.contains('dark')) {
+                    document.documentElement.classList.remove('dark');
+                    localStorage.setItem('color-theme', 'light');
+                } else {
+                    document.documentElement.classList.add('dark');
+                    localStorage.setItem('color-theme', 'dark');
+                }
+            }
+        });
+
+        // Typewriter effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const typed = new Typed('#typewriter', {
+                strings: [
+                            'I turn AI models into production-ready applications.',
+                            'I design and deploy scalable APIs with FastAPI.',
+                            'I integrate Gemini API for intelligent, real-time responses.',
+                            'I craft NLP pipelines for smarter data understanding.',
+                            ],
+                typeSpeed: 50,
+                backSpeed: 30,
+                loop: true,
+                showCursor: true,
+                cursorChar: '|'
+            });
+        });
+
+        // Project filter
+        const filterButtons = document.querySelectorAll('.project-filter');
+        const projectCards = document.querySelectorAll('.project-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-primary-600', 'text-white', 'dark:bg-primary-700');
+                    btn.classList.add('bg-white', 'text-gray-900', 'dark:bg-gray-700', 'dark:text-white');
+                });
+                button.classList.add('bg-primary-600', 'text-white', 'dark:bg-primary-700');
+                button.classList.remove('bg-white', 'text-gray-900', 'dark:bg-gray-700', 'dark:text-white');
+
+                // Filter projects
+                const filter = button.textContent.trim().toLowerCase();
+                
+                projectCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.classList.remove('hidden');
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category.includes(filter)) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        });
+
+        // Testimonial carousel
+        let currentTestimonial = 0;
+        const testimonials = document.querySelectorAll('.testimonial-slide');
+        const indicators = document.querySelectorAll('.testimonial-carousel .flex button');
+        
+        function showTestimonial(index) {
+            testimonials.forEach((testimonial, i) => {
+                testimonial.style.transform = `translateX(-${index * 100}%)`;
+            });
+            
+            indicators.forEach((indicator, i) => {
+                if (i === index) {
+                    indicator.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+                    indicator.classList.add('bg-primary-600', 'dark:bg-primary-400');
+                } else {
+                    indicator.classList.add('bg-gray-300', 'dark:bg-gray-600');
+                    indicator.classList.remove('bg-primary-600', 'dark:bg-primary-400');
+                }
+            });
+            
+            currentTestimonial = index;
+        }
+        
+        document.querySelector('.testimonial-carousel button:first-of-type').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        document.querySelector('.testimonial-carousel button:last-of-type').addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            showTestimonial(currentTestimonial);
+        });
+        
+        indicators.forEach((indicator, i) => {
+            indicator.addEventListener('click', () => {
+                showTestimonial(i);
+            });
+        });
+        
+        // Initialize
+        showTestimonial(0);
+
+        // Navbar active link highlighting
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        function updateActiveNavLink() {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= (sectionTop - 100)) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${currentSection}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateActiveNavLink);
+        window.addEventListener('load', updateActiveNavLink);
+    </script>
+</body>
+</html>
