@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website built with **HTML** and **Tailwind CSS** to showcase my work, skills, and achievements as a 4th-year AIML and Backend developer.
 
----
+
 
 ## 🌟 Features
 - **Responsive Design** – Optimized for desktop, tablet, and mobile.
@@ -12,7 +12,6 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 - **Animated UI Elements** – Hover effects, typewriter animations, and scroll-triggered transitions.
 - **Accessible Layout** – High contrast and semantic HTML.
 
----
 
 ## 📂 Sections
 1. **Hero** – Introduction, tagline, profile image, and quick action buttons.
@@ -25,18 +24,15 @@ A modern, responsive personal portfolio website built with **HTML** and **Tailwi
 8. **Contact** – Contact form and quick social/email links.
 9. **Footer** – Minimalist footer with copyright.
 
----
 
 ## 🛠️ Tech Stack
 - **Frontend:** HTML, Tailwind CSS (CDN)
 - **Animations & UI Enhancements:** Tailwind transitions, keyframe animations
 - **Typography & Forms:** Tailwind Typography & Forms plugins
 
----
 
 ## 📬 Contact
 
 * **Email:** [kartikeyp011@gmail.com](mailto:kartikeyp011@gmail.com)
 * **LinkedIn:** [linkedin.com/in/kartikeyp011](https://linkedin.com/in/kartikeyp011)
 * **GitHub:** [github.com/kartikeyp011](https://github.com/kartikeyp011)
-```
